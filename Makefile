@@ -7,5 +7,5 @@ all:
 clean: 
 	rm -rf *.o
 fclean: clean
-	rm -rf test
+	rm -rf key_checker
 re: fclean all
