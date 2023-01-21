@@ -1,0 +1,81 @@
+drawing a sqare with mlx:
+
+while (x < 50)
+	{
+		my_mlx_pixel_put(&img, x, y, 0x00FF0000);
+		y = 0;
+		while (y < 50)
+		{
+			my_mlx_pixel_put(&img, x, y, 0x00FF0000);
+			y++;
+		}
+		x++;
+	}
+
+Perimetro de um circulo:
+
+	int xcentro = 250;
+	int ycentro = 250;
+	int r = 250;
+	double angulo = 0;
+	x = 0;
+	y = 0;
+	while (angulo <= 90)
+	{
+		if (angulo == 0)
+		{
+			x = r + xcentro;
+			y = ycentro;
+		}
+		else if (angulo == 90)
+		{
+			y = ycentro + r;
+			x = xcentro;
+		}
+		else 
+		{
+			x = xcentro + r * sin(angulo/(2 * PI));
+			y = ycentro + r * cos(angulo/(2 * PI));
+		}
+		my_mlx_pixel_put(&img, x, y, 0x00FF0000);
+		angulo++;
+	}
+
+xcentro = 250;
+	ycentro = 250;
+	r = 250;
+	angulo = 0;
+	x = 0;
+	y = 0;
+	int xm = 0;
+	int ym = 0;
+	while (angulo <= 180)
+	{
+		if (angulo == 90)
+		{
+			x = xcentro + r;
+			y = ycentro;
+		}
+		else if (angulo == 180)
+		{
+			y = ycentro + r;
+			x = xcentro;  
+		}
+		else 
+		{
+			x = xcentro + r * sin(angulo / PI);
+			y = ycentro + r * cos(angulo / PI);
+		}
+		ym = y;
+		while (x <= xcentro)
+		{
+			y = ym;
+			while (y <= ycentro)
+			{
+				my_mlx_pixel_put(&img, x, y, 0x00FF0000);
+				y++;
+			}
+			x++;
+		}
+		angulo++;
+	}

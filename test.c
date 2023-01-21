@@ -10,6 +10,7 @@ typedef struct	s_data {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+
 }				t_data;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
@@ -33,32 +34,30 @@ int	main(void)
 	img.img = mlx_new_image(mlx, 500, 500);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								&img.endian);
-	x = 1;
-	y = 1;
-	/*while (x < 50)
-	{
-		my_mlx_pixel_put(&img, x, y, 0x00FF0000);
-		y = 0;
-		while (y < 50)
-		{
-			my_mlx_pixel_put(&img, x, y, 0x00FF0000);
-			y++;
-		}
-		x++;
-	}*/
-
-	x = 250;
-	y = 250;
-	int r = 2;
+	int xcentro = 250;
+	int ycentro = 250;
+	int r = 250;
 	double angulo = 0;
-	while (angulo < 360)
+	x = 0;
+	y = 0;
+	while (angulo <= 90)
 	{
-		x = x + r * sin(angulo/(2 * PI));
-		y = y - r * (1 - cos(angulo/(2 * PI)));
-		if (y < 0 || x < 0)
-			break;
+		if (angulo == 0)
+		{
+			y = r + ycentro;
+			x = xcentro;
+		}
+		else if (angulo == 90)
+		{
+			x = xcentro + r;
+			y = ycentro;
+		}
+		else 
+		{
+			y = ycentro + r * sin(angulo/(PI));
+			x = xcentro + r * cos(angulo/(PI));
+		}
 		my_mlx_pixel_put(&img, x, y, 0x00FF0000);
-
 		angulo++;
 	}
 
