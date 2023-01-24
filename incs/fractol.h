@@ -30,12 +30,20 @@ typedef struct	s_data
 
 }				t_data;
 
+typedef struct	s_vars 
+{
+	void	*mlx;
+	void	*win;
+    int     imagewidth;
+    int     imageheigth;
+}				t_vars;
+
 typedef struct  s_mandelbrot
 {
-    double          minx;
-    double          maxx;
-    double          miny;
-    double          maxy;
+    double          min_x;
+    double          max_x;
+    double          min_y;
+    double          max_y;
     double          y_factor;
     double          x_factor;
     double          c_y;
@@ -50,4 +58,6 @@ typedef struct  s_mandelbrot
     unsigned int    y;
     bool             isinside;
 }               t_mandelbrot;
+void    my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int key_hook(int keycode, t_vars *vars, t_data *img);
 #endif

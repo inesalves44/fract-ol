@@ -1,17 +1,7 @@
 #include "./mlx/mlx.h"
+#include "incs/fractol.h"
 #include <stdio.h>
 #include <math.h>
-
-#define PI 3.1415926
-
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-
-}				t_data;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -21,46 +11,69 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+void	drawing_square(t_data img, int i, t_vars vars)
+{
+	int x;
+	int y;
+
+	x = 50;
+	y = 50;
+	int color = 0x00ff0000 + i * 1000;
+	while (x < 100)
+	{
+		y = 50;
+		while (y < 100)
+		{
+			color += 5000 * i;
+			my_mlx_pixel_put(&img, x, y, color);
+			y++;
+		}
+		x++;
+	}
+}
+
+int	key_hook(int keycode, t_vars *vars, t_data *img)
+{
+	int i;
+
+	i = 1; 
+	if (keycode == 65307)
+	{
+		mlx_destroy_window(vars->mlx, vars->win);
+		exit(0);
+	}
+	if (keycode == 32)
+	{
+		mlx_clear_window(vars->mlx, vars->win);
+		img->img = mlx_new_image(vars->mlx, 500, 500);
+		img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length, &img->endian);
+		i += 2;
+		drawing_square(*img, i, *vars);
+	}
+	return (0);
+}
+
 int	main(void)
 {
-	void	*mlx;
-	void	*mlx_win;
+	t_vars	vars;
 	t_data	img;
 	int x;
 	int y;
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 500, 500, "Hello world!");
-	img.img = mlx_new_image(mlx, 500, 500);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
-	int xcentro = 250;
-	int ycentro = 250;
-	int r = 250;
-	double angulo = 0;
-	x = 0;
-	y = 0;
-	while (angulo <= 90)
-	{
-		if (angulo == 0)
-		{
-			y = r + ycentro;
-			x = xcentro;
-		}
-		else if (angulo == 90)
-		{
-			x = xcentro + r;
-			y = ycentro;
-		}
-		else 
-		{
-			y = ycentro + r * sin(angulo/(PI));
-			x = xcentro + r * cos(angulo/(PI));
-		}
-		my_mlx_pixel_put(&img, x, y, 0x00FF0000);
-		angulo++;
-	}
+	vars.mlx = mlx_init();
+	vars.win = mlx_new_window(vars.mlx, 500, 500, "Squareeeeee");
+	img.img = mlx_new_image(vars.mlx, 500, 500);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	drawing_square(img, 1, vars);
 
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
+	//mlx_mouse_hook(var.win, &mouse_handle, &var);
+	mlx_key_hook(vars.win, &key_hook, &vars);
+	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
+	mlx_loop(vars.mlx);
+	
+	mlx_destroy_image(vars.mlx, img.img);
+	mlx_destroy_window(vars.mlx, vars.win);
+	mlx_destroy_display(vars.mlx);
+	free(vars.mlx);
+
 }

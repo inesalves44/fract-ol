@@ -1,13 +1,13 @@
 
-CC=cc
+CC = cc
 
-all:
+test:
 	cc -I.. -g -c -o test.o test.c
 	cc -o test test.o -L./mlx -lmlx -lXext -lX11 -lm -lbsd
 
-hook:
+hook: 
 	cc -I.. -g -c -o hooks.o hooks.c
-	cc -o hooks hooks.o -L./mlx -lmlx -lXext -lX11 -lm -lbsd
+	$(CC) -o hooks hooks.o ft_printf/libftprintf.a -L./mlx -lmlx -lXext -lX11 -lm -lbsd
 
 mandelbrot:
 	cc -I.. -g -c -o mandelbrot.o mandelbrot.c
@@ -23,4 +23,12 @@ clean:
 fclean: clean
 	rm -rf test hooks mandelbrot
 
-re: fclean all
+remandelbrot: fclean mandelbrot
+
+remtest: fclean mtest
+
+rehook: fclean hook
+
+retest: fclean test
+
+#cc -I.. -g -c -o hooks.o hooks.c
