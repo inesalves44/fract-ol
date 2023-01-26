@@ -56,8 +56,11 @@ typedef struct  s_mandelbrot
     unsigned int    maxit;
     unsigned int    x;
     unsigned int    y;
-    bool             isinside;
+    int             isinside;
+    int             a;
 }               t_mandelbrot;
+
 void    my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int key_hook(int keycode, t_vars *vars, t_data *img);
+int key_hook(int keycode, t_vars *vars, t_data *img, t_mandelbrot *mandelbrot);
+void    do_mandelbrot(t_mandelbrot mandelbrot, t_vars vars, t_data img);
 #endif

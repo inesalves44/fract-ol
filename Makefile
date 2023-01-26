@@ -2,16 +2,20 @@
 CC = cc
 
 test:
+	make -C ft_printf
+	cp ft_printf/libftprintf.a libftprintf.a 
 	cc -I.. -g -c -o test.o test.c
-	cc -o test test.o -L./mlx -lmlx -lXext -lX11 -lm -lbsd
+	cc -o test test.o libftprintf.a -L./mlx -lmlx -lXext -lX11 -lm -lbsd
 
 hook: 
 	cc -I.. -g -c -o hooks.o hooks.c
 	$(CC) -o hooks hooks.o ft_printf/libftprintf.a -L./mlx -lmlx -lXext -lX11 -lm -lbsd
 
 mandelbrot:
+	make -C ft_printf
+	cp ft_printf/libftprintf.a libftprintf.a 
 	cc -I.. -g -c -o mandelbrot.o mandelbrot.c
-	cc -o mandelbrot mandelbrot.o -L./mlx -lmlx -lXext -lX11 -lm -lbsd
+	cc -o mandelbrot mandelbrot.o libftprintf.a  -L./mlx -lmlx -lXext -lX11 -lm -lbsd
 
 mtest:
 	cc -I.. -g -c -o mandelbrot_test.o mandelbrot_test.c

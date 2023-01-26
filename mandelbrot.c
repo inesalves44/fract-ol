@@ -13,13 +13,26 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int	key_hook(int keycode, t_vars *vars, t_data *img)
+int	key_hook(int keycode, t_vars *vars, t_data *img, t_mandelbrot *mandelbrot)
 {
 	if (keycode == 65307)
 	{
 		mlx_destroy_window(vars->mlx, vars->win);
 		exit(0);
 	}
+    else if(keycode == 32)
+    {
+        mlx_clear_window(vars->win, vars->win);
+		img->img = mlx_new_image(vars->mlx, vars->imageheigth, vars->imagewidth);
+		img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length, &img->endian);
+		mandelbrot->a = 2;
+		do_mandelbrot(*mandelbrot, *vars, *img);
+    }
+    else
+    {
+        ft_putnbr(keycode);
+        ft_printf("\n");
+    }
 	return (0);
 }
 
@@ -38,7 +51,7 @@ void    get_color(t_data img, t_mandelbrot mandelbrot, t_vars vars)
             my_mlx_pixel_put(&img, mandelbrot.x, mandelbrot.y, color);
             break;
         }
-        color += 500 * (i + 0);
+        color += 500 * (i + mandelbrot.a);
         i--; 
     }
 }
@@ -56,31 +69,16 @@ void    initialize_mandelbrot(t_mandelbrot *mandelbrot, int imgh, int imgw)
     mandelbrot->y = 0;
     mandelbrot->n = 0;
     mandelbrot->isinside = 0;
+    mandelbrot->a = 0;
 }
 
-void    do_mandelbrot()
+void    do_mandelbrot(t_mandelbrot mandelbrot, t_vars vars, t_data img)
 {
-    
-}
-
-int main()
-{
-    t_vars  vars;
-    t_data  img;
-    t_mandelbrot    mandelbrot;
-    int imgh = 800;
-    int imgw = 800;
-    initialize_mandelbrot(&mandelbrot, imgh, imgw);
-    vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, imgh, imgw, "MandelBrot");
-    img.img = mlx_new_image(vars.mlx, imgh, imgw);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-
-    while (mandelbrot.y++ < imgh)
+     while (mandelbrot.y++ < vars.imageheigth)
     {
         mandelbrot.c_y = mandelbrot.max_y - mandelbrot.y * mandelbrot.y_factor;
         mandelbrot.x = 0;
-        while (mandelbrot.x++ < imgw)
+        while (mandelbrot.x++ < vars.imagewidth)
         {
             mandelbrot.c_x = mandelbrot.min_x + mandelbrot.x * mandelbrot.x_factor;
             mandelbrot.z_y = mandelbrot.c_y;
@@ -102,7 +100,35 @@ int main()
             get_color(img, mandelbrot, vars);
         }
     }
+}
+
+int esc_window(t_vars *vars)
+{
+	mlx_destroy_window(vars->mlx, vars->win);
+	exit(0);
+}
+
+int main()
+{
+    t_vars  vars;
+    t_data  img;
+    t_mandelbrot    mandelbrot;
+    vars.imageheigth = 800;
+    vars.imagewidth = 800;
+    initialize_mandelbrot(&mandelbrot, vars.imageheigth, vars.imagewidth);
+    vars.mlx = mlx_init();
+	vars.win = mlx_new_window(vars.mlx, vars.imageheigth, vars.imagewidth, "MandelBrot");
+    img.img = mlx_new_image(vars.mlx, vars.imageheigth, vars.imagewidth);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+
+    do_mandelbrot(mandelbrot, vars, img);
     mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
+    mlx_hook(vars.win, 17, 0, &esc_window, &vars);
     mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_loop(vars.mlx);
+
+    mlx_destroy_image(vars.mlx, img.img);
+	mlx_destroy_window(vars.mlx, vars.win);
+	mlx_destroy_display(vars.mlx);
+	free(vars.mlx);
 }
