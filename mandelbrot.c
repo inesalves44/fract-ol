@@ -13,21 +13,16 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int	key_hook(int keycode, t_vars *vars, t_data *img, t_mandelbrot *mandelbrot)
+int esc_window(t_vars *vars)
+{
+	mlx_destroy_window(vars->mlx, vars->win);
+	exit(0);
+}
+
+int	key_hook(int keycode, t_vars *vars, t_data *img, t_mandelbrot mandelbrot)
 {
 	if (keycode == 65307)
-	{
-		mlx_destroy_window(vars->mlx, vars->win);
-		exit(0);
-	}
-    else if(keycode == 32)
-    {
-        mlx_clear_window(vars->win, vars->win);
-		img->img = mlx_new_image(vars->mlx, vars->imageheigth, vars->imagewidth);
-		img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length, &img->endian);
-		mandelbrot->a = 2;
-		do_mandelbrot(*mandelbrot, *vars, *img);
-    }
+        esc_window(vars);
     else
     {
         ft_putnbr(keycode);
@@ -36,6 +31,27 @@ int	key_hook(int keycode, t_vars *vars, t_data *img, t_mandelbrot *mandelbrot)
 	return (0);
 }
 
+/*void	mouse_zoom(t_mandelbrot *f, double zoom, int x, int y)
+{
+	(void)x;
+	(void)y;
+	f->center_r = f->min_r - f->max_r;
+	f->center_i = f->max_i - f->min_i;
+	f->max_r = f->max_r + (f->center_r - zoom * f->center_r) / 2;
+	f->min_r = f->max_r + zoom * f->center_r;
+	f->min_i = f->min_i + (f->center_i - zoom * f->center_i) / 2;
+	f->max_i = f->min_i + zoom * f->center_i;
+	return ;
+}*/
+
+int	mouse_hook(int mousecode, t_vars *vars, t_data *img, t_mandelbrot mandelbrot)
+{
+	if (mousecode == 4)
+    {
+        //mouse_zoom();
+    }
+	return (0);
+}
 
 void    get_color(t_data img, t_mandelbrot mandelbrot, t_vars vars)
 {
@@ -72,7 +88,7 @@ void    initialize_mandelbrot(t_mandelbrot *mandelbrot, int imgh, int imgw)
     mandelbrot->a = 0;
 }
 
-void    do_mandelbrot(t_mandelbrot mandelbrot, t_vars vars, t_data img)
+int    do_mandelbrot(t_mandelbrot mandelbrot, t_vars vars, t_data img)
 {
      while (mandelbrot.y++ < vars.imageheigth)
     {
@@ -100,12 +116,8 @@ void    do_mandelbrot(t_mandelbrot mandelbrot, t_vars vars, t_data img)
             get_color(img, mandelbrot, vars);
         }
     }
-}
-
-int esc_window(t_vars *vars)
-{
-	mlx_destroy_window(vars->mlx, vars->win);
-	exit(0);
+    mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
+    return (0);
 }
 
 int main()
@@ -120,10 +132,10 @@ int main()
 	vars.win = mlx_new_window(vars.mlx, vars.imageheigth, vars.imagewidth, "MandelBrot");
     img.img = mlx_new_image(vars.mlx, vars.imageheigth, vars.imagewidth);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-
     do_mandelbrot(mandelbrot, vars, img);
-    mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
+    //mlx_loop_hook(vars.mlx, &do_mandelbrot, &vars);
     mlx_hook(vars.win, 17, 0, &esc_window, &vars);
+    mlx_mouse_hook(vars.mlx, &mouse_hook, &vars);
     mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_loop(vars.mlx);
 

@@ -11,6 +11,26 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+
+int mouse_hook(int mousecode, int x, int y, t_vars *vars)
+{
+	if (mousecode == 1)
+	{
+		ft_putnbr(mousecode);
+	}
+	else if (mousecode == 4)
+	{
+		ft_putnbr(mousecode);
+	}
+    return(0);
+}
+
+int esc_window(t_vars *vars)
+{
+	mlx_destroy_window(vars->mlx, vars->win);
+	exit(0);
+}
+
 void	drawing_square(t_data img, int i, t_vars vars)
 {
 	int x;
@@ -34,9 +54,9 @@ void	drawing_square(t_data img, int i, t_vars vars)
 
 int	key_hook(int keycode, t_vars *vars, t_data *img)
 {
-	int i;
+	static int i;
 
-	i = 1; 
+	i = 1;
 	if (keycode == 65307)
 	{
 		mlx_destroy_window(vars->mlx, vars->win);
@@ -44,32 +64,19 @@ int	key_hook(int keycode, t_vars *vars, t_data *img)
 	}
 	else if (keycode == 32)
 	{
-		mlx_clear_window(vars->win, vars->win);
+		i++;
+		mlx_destroy_window(vars->mlx, vars->win);
+		vars->win = mlx_new_window(vars->mlx, 500, 500, "Squareeeeee");
 		img->img = mlx_new_image(vars->mlx, 500, 500);
 		img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length, &img->endian);
-		i += 2;
 		drawing_square(*img, i, *vars);
+		mlx_put_image_to_window(vars->mlx, vars->win, img->img, 0, 0);
+		mlx_hook(vars->win, 17, 0, &esc_window, vars);
+		mlx_key_hook(vars->win, &key_hook, vars);
+		mlx_mouse_hook(vars->win, &mouse_hook, vars);
+		mlx_loop(vars->mlx);
 	}
 	return (0);
-}
-
-int mouse_hook(int mousecode, int x, int y, t_vars *vars)
-{
-	if (mousecode == 1)
-	{
-		ft_putnbr(mousecode);
-	}
-	else if (mousecode == 4)
-	{
-		ft_putnbr(mousecode);
-	}
-    return(0);
-}
-
-int esc_window(t_vars *vars)
-{
-	mlx_destroy_window(vars->mlx, vars->win);
-	exit(0);
 }
 
 int	main(void)
