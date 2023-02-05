@@ -1,36 +1,48 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: idias-al <idias-al@student.42porto.com>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/02/02 18:52:22 by idias-al          #+#    #+#              #
+#    Updated: 2023/02/02 18:52:36 by idias-al         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-CC = cc
+OBJS	=	mandatory/main.o mandatory/init_mlx.o mandatory/exit_errors.o mandatory/hooks.o mandatory/mandelbrot.o\
+			mandatory/imgpixel.o mandatory/julia.o mandatory/fractol_utils.o
 
-test:
-	cc -I.. -g -c -o test.o test.c
-	cc -o test test.o libftprintf.a -L./mlx -lmlx -lXext -lX11 -lm -lbsd
+BONUS	=	bonus/main_bonus.o bonus/init_mlx_bonus.o bonus/exit_errors_bonus.o bonus/hooks_bonus.o bonus/mandelbrot_bonus.o\
+			bonus/imgpixel_bonus.o bonus/julia_bonus.o bonus/fractol_utils_bonus.o
 
-hook: 
-	cc -I.. -g -c -o hooks.o hooks.c
-	$(CC) -o hooks hooks.o ft_printf/libftprintf.a -L./mlx -lmlx -lXext -lX11 -lm -lbsd
+CC		= cc
+CFLAGS	= -Wextra -Wall -Werror -g
+MINILB	= -L./mlx -lmlx -lXext -lX11 -lm -lbsd
+NAME	= fractol
+LIBFTPRINTF = libftprintf.a
 
-mandelbrot:
-	cc -I.. -g -c -o mandelbrot.o mandelbrot.c
-	cc -o mandelbrot mandelbrot.o libftprintf.a  -L./mlx -lmlx -lXext -lX11 -lm -lbsd
+all:	$(NAME)
 
-mtest:
-	cc -I.. -g -c -o mandelbrot_test.o mandelbrot_test.c
-	cc -o mandelbrot mandelbrot_test.o -L./mlx -lmlx -lXext -lX11 -lm -lbsd
+$(NAME): $(OBJS)
+		$(MAKE) -C ft_printf
+		cp ft_printf/$(LIBFTPRINTF) $(LIBFTPRINTF)
+		$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFTPRINTF) $(MINILB)
 
-clean: 
-	rm -rf *.o
+bonus: $(NAME) $(BONUS)
+		$(CC) $(CFLAGS) -o $(NAME) $(BONUS) $(LIBFTPRINTF) $(MINILB)
+
+clean:
+	$(MAKE) clean -C ft_printf
+	rm -rf $(OBJS) $(BONUS)
 
 fclean: clean
-	rm -rf test hooks mandelbrot
+	$(MAKE) fclean -C ft_printf
+	rm -rf $(NAME) $(LIBFTPRINTF)
 
-remandelbrot: fclean mandelbrot
-
-remtest: fclean mtest
-
-rehook: fclean hook
-
-retest: fclean test
-
+re: fclean all
+rebonus: fclean bonus
 #cc -I.. -g -c -o hooks.o hooks.c
 #make -C ft_printf
-#cp ft_printf/libftprintf.a libftprintf.a 
+#cp ft_printf/libftprintf.a libftprintf.a
+#cc -I.. -g -c -o main.o $(OBJS) 

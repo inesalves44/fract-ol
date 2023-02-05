@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   fractol_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: idias-al <idias-al@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
+#ifndef FRACTOL_BONUS_H
+# define FRACTOL_BONUS_H
 
 # include ".././mlx/mlx.h"
 # include <stdio.h>
@@ -28,6 +28,7 @@
 #  define ARR_DOWN 65362
 #  define ARR_RIGHT 65363
 #  define ARR_LEFT 65361
+#  define SPACE 32
 # else
 #  define ESC 53
 #  define SCROLL_UP 5
@@ -80,6 +81,9 @@ typedef struct s_julia
 	int		maxit;
 	int		x;
 	int		y;
+	int		color;
+	double	movex;
+	double	movey;
 }	t_julia;
 
 typedef struct s_mandelbrot
@@ -103,7 +107,15 @@ typedef struct s_mandelbrot
 	int		y;
 	int		width;
 	int		heigth;
+	int		color;
 }	t_mdb;
+
+typedef struct s_aux
+{
+	int		color;
+	double	zoom;
+	t_data	new_img;
+}	t_aux;
 
 typedef struct s_vars
 {
@@ -114,7 +126,7 @@ typedef struct s_vars
 	t_data	img;
 	t_mdb	mandb;
 	t_julia	julia;
-	t_data	aux;
+	t_aux	aux;
 	int		add;
 	int		ismandel;
 }	t_vars;
@@ -139,10 +151,10 @@ int		ft_fractal(int a, char *argv[]);
 /*Mandelbrot*/
 t_mdb	initialize_mandelbrot(char *argv[]);
 int		do_mandelbrot(t_mdb mandelbrot, t_vars *vars, t_data img);
-int		change_mandelbrot(t_vars *vars, double zoom);
+int		change_mandelbrot(t_vars *vars);
 
 /*Julia*/
-int		change_julia(t_vars *vars, double zoom);
+int		change_julia(t_vars *vars);
 int		do_julia(t_julia julia, t_vars *vars, t_data img);
 t_julia	initialize_julia(char *argv[]);
 double	checkinputc(char *argv[], char a);
