@@ -17,8 +17,6 @@ int	change_mandelbrot(t_vars *vars)
 	vars->mandb.zoom = vars->aux.zoom;
 	vars->mandb.maxit = 150;
 	vars->mandb.y = -1;
-	vars->mandb.y_factor = (vars->mandb.max_y - vars->mandb.min_y) / (vars->mandb.heigth - 1);
-	vars->mandb.x_factor = (vars->mandb.max_x - vars->mandb.min_x) / (vars->mandb.width - 1);
 	vars->mandb.color = vars->aux.color;
 	return (0);
 }
@@ -28,11 +26,9 @@ double	screentocomplex(t_vars *vars, int x, int y, int i)
 	double	number;
 
 	if (i == 0)
-		number = 1.5 * ((double)x - vars->imgw / 2) / (0.5 * vars->aux.zoom * vars->imgw) + vars->mandb.offx;
-//(((double)x / vars->imgw) * (vars->mandb.max_x - vars->mandb.min_x)) * vars->aux.zoom + vars->mandb.min_x + vars->mandb.offx;
+		number = (((double)x / vars->imgw) * (vars->mandb.max_x - vars->mandb.min_x)) * vars->aux.zoom + vars->mandb.min_x + vars->mandb.offx;//1.5 * ((double)x - vars->imgw / 2) / (0.5 * vars->aux.zoom * vars->imgw) + vars->mandb.offx;
 	else
-		number = ((double)y - vars->imgh / 2) / (0.5 * vars->aux.zoom *vars->imgh) + vars->mandb.offy;
-//(((double)y / vars->imgh) * (vars->mandb.max_y - vars->mandb.min_y)) * vars->aux.zoom + vars->mandb.min_y + vars->mandb.offy;
+		number = (((double)y / vars->imgh) * (vars->mandb.max_y - vars->mandb.min_y)) * vars->aux.zoom + vars->mandb.min_y + vars->mandb.offy; //((double)y - vars->imgh / 2) / (0.5 * vars->aux.zoom *vars->imgh) + vars->mandb.offy;
 	return (number);
 }
 
@@ -45,8 +41,6 @@ int	do_mandelbrot(t_mdb m, t_vars *vars, t_data img)
 		while (++m.x < m.width)
 		{
 			m.c_x = screentocomplex(vars, m.x, m.y, 0);
-			if (m.x == m.width - 1 && m.y == 0)
-				printf("m.c_x: %f\n", ((double)m.x / vars->imgw) * (m.max_x - m.min_x) * vars->aux.zoom + m.min_x + m.offx);
 			m.c_y = screentocomplex(vars, m.x, m.y, 1);
 			m.prev_z_x = 0;
 			m.prev_z_y = 0;
@@ -99,7 +93,7 @@ t_mdb	initialize_mandelbrot(char *argv[])
 	m.zoom = 1;
 	m.min_x = -2.05859375;
 	m.max_x = 1.05859375;
-	m.min_y = 1.05859375;
+	m.min_y = -1.05859375;
 	m.max_y = 1.05859375;
 	change_minmax(&m);
 	m.maxit = 150;
