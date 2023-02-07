@@ -55,13 +55,13 @@ void	get_color_julia(t_julia julia, t_data img)
 			break ;
 		}
 		else if (julia.n > 200)
-			color += 100 * (i * 2);
+			color += 50 + (i);
 		else if (julia.n > 100 && julia.n <= 200)
-			color += 200 * (i * 3);
+			color += (500 + 1) + (i);
 		else if (julia.n > 50 && julia.n <= 100)
-			color += 300 * (i * 4);
+			color += (7000 + 5) + (i - 49);
 		else if (julia.n <= 50)
-			color += 400 * (i + 1);
+			color += (8050 + 10) + (i);
 		i--;
 	}
 	my_mlx_pixel_put(&img, julia.x, julia.y, color);

@@ -14,7 +14,7 @@ OBJS	=	mandatory/main.o mandatory/init_mlx.o mandatory/exit_errors.o mandatory/h
 			mandatory/imgpixel.o mandatory/julia.o mandatory/fractol_utils.o
 
 BONUS	=	bonus/main_bonus.o bonus/init_mlx_bonus.o bonus/exit_errors_bonus.o bonus/hooks_bonus.o bonus/mandelbrot_bonus.o\
-			bonus/imgpixel_bonus.o bonus/julia_bonus.o bonus/fractol_utils_bonus.o
+			bonus/imgpixel_bonus.o bonus/julia_bonus.o bonus/fractol_utils_bonus.o bonus/hooks_test.o
 
 CC		= cc
 CFLAGS	= -Wextra -Wall -Werror -g
@@ -45,4 +45,4 @@ rebonus: fclean bonus
 #cc -I.. -g -c -o hooks.o hooks.c
 #make -C ft_printf
 #cp ft_printf/libftprintf.a libftprintf.a
-#cc -I.. -g -c -o main.o $(OBJS) 
+#cc -I.. -g -c -o main.o $(OBJS)

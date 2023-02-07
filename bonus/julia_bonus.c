@@ -29,7 +29,7 @@ int	do_julia(t_julia j, t_vars *vars, t_data img)
 	{
 		j.x = -1;
 		while (++j.x < j.width)
-		{	
+		{
 			j.z_x = 1.5 * (j.x - j.width / 2) / (0.5 * j.zoom * j.width) + j.movex;
 			j.z_y = (j.y - j.heigth / 2) / (0.5 * j.zoom * j.heigth) + j.movey;
 			j.n = -1;

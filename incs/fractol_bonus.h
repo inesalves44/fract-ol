@@ -40,11 +40,11 @@
 # endif
 
 # ifndef IMG_H
-#  define IMG_H 400
+#  define IMG_H 450
 # endif
 
 # ifndef IMG_W
-#  define IMG_W 400
+#  define IMG_W 600
 # endif
 
 # ifndef CX_JULIA
@@ -98,8 +98,8 @@ typedef struct s_mandelbrot
 	double	c_x;
 	double	z_y;
 	double	z_x;
-	double	z_y2;
-	double	z_x2;
+	double	prev_z_y;
+	double	prev_z_x;
 	double	zoom;
 	int		n;
 	int		maxit;
@@ -108,11 +108,19 @@ typedef struct s_mandelbrot
 	int		width;
 	int		heigth;
 	int		color;
+	double	offx;
+	double	offy;
 }	t_mdb;
 
 typedef struct s_aux
 {
 	int		color;
+	float	offx;
+	float	offy;
+	float	scalex;
+	float	scaley;
+	float	panx;
+	float	pany;
 	double	zoom;
 	t_data	new_img;
 }	t_aux;
@@ -140,6 +148,7 @@ void	get_color_julia(t_julia julia, t_data img);
 int		key_hook(int keycode, t_vars *vars);
 int		mouse_hook(int mousecode, int x, int y, t_vars *vars);
 int		doing_events(t_vars *vars);
+double	zoom_fractal(int mousecode, t_vars *vars, int x, int y);
 
 /*Initialize functions*/
 int		initialize_mlx(t_vars *vars, char *argv[]);

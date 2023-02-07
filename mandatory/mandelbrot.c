@@ -15,9 +15,9 @@
 int	change_mandelbrot(t_vars *vars, double zoom)
 {
 	vars->mandb.zoom = zoom;
-	vars->mandb.min_x = -2.0 * zoom;
-	vars->mandb.max_x = 1.0 * zoom;
-	vars->mandb.min_y = -1.2 * zoom;
+	vars->mandb.min_x = -2.0* zoom;
+	vars->mandb.max_x = (1.0)* zoom;
+	vars->mandb.min_y = (-1.5)* zoom;
 	vars->mandb.maxit = 150;
 	vars->mandb.y = -1;
 	vars->mandb.max_y = vars->mandb.min_y \

@@ -29,6 +29,8 @@ void	get_color(t_mdb mandelbrot, t_data img)
 	color = 0x00000000;
 	while (i)
 	{
+		if (mandelbrot.x == mandelbrot.width / 2 || mandelbrot.y == mandelbrot.heigth / 2)
+			color = 0x00FF0000;
 		if (i == mandelbrot.n)
 		{
 			my_mlx_pixel_put(&img, mandelbrot.x, mandelbrot.y, color);
@@ -55,13 +57,13 @@ void	get_color_julia(t_julia julia, t_data img)
 			break ;
 		}
 		else if (julia.n > 200)
-			color += 100 * (i * 2) * julia.color;
+			color += 50 + (i) + julia.color;
 		else if (julia.n > 100 && julia.n <= 200)
-			color += 200 * (i * 3) * julia.color;
+			color += (500 + 1) + (i) + julia.color;
 		else if (julia.n > 50 && julia.n <= 100)
-			color += 300 * (i * 4) * julia.color;
+			color += (7000 + 5) + (i - 49) + julia.color;
 		else if (julia.n <= 50)
-			color += 400 * (i + 1) * julia.color;
+			color += (8050 + 10) + (i) + julia.color;
 		i--;
 	}
 	my_mlx_pixel_put(&img, julia.x, julia.y, color);
