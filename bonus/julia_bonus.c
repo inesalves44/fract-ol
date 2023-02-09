@@ -14,24 +14,22 @@
 
 int	change_julia(t_vars *vars)
 {
-	vars->julia.zoom = vars->aux.zoom;
-	vars->julia.color = vars->aux.color;
-	vars->julia.maxit = 300;
-	vars->julia.x = -1;
-	vars->julia.y = -1;
-	vars->julia.n = 0;
+	vars->fract.color = vars->aux.color;
+	vars->fract.maxit = 300;
+	vars->fract.x = -1;
+	vars->fract.y = -1;
 	return (0);
 }
 
-int	do_julia(t_julia j, t_vars *vars, t_data img)
+int	do_julia(t_fract j, t_vars *vars, t_data img)
 {
 	while (++j.y < j.heigth)
 	{
 		j.x = -1;
 		while (++j.x < j.width)
 		{
-			j.z_x = 1.5 * (j.x - j.width / 2) / (0.5 * j.zoom * j.width) + j.movex;
-			j.z_y = (j.y - j.heigth / 2) / (0.5 * j.zoom * j.heigth) + j.movey;
+			j.z_x = screentocomplex(vars, j.x, j.y, 0);
+			j.z_y = screentocomplex(vars, j.x, j.y, 1);
 			j.n = -1;
 			while (++j.n < j.maxit)
 			{
@@ -75,29 +73,4 @@ double	checkinputc(char *argv[], char a)
 	if (argv[2] && c != -100000)
 		return (c);
 	return (-100000);
-}
-
-t_julia	initialize_julia(char *argv[])
-{
-	t_julia	julia;
-
-	julia.width = check_windowinput(argv, 'w', 1);
-	if (!julia.width)
-		julia.width = IMG_W;
-	julia.heigth = check_windowinput(argv, 'h', 1);
-	if (!julia.heigth)
-		julia.heigth = IMG_H;
-	julia.zoom = 1;
-	julia.c_y = checkinputc(argv, 'y');
-	if (julia.c_y == -100000)
-		julia.c_y = CY_JULIA;
-	julia.c_x = checkinputc(argv, 'x');
-	if (julia.c_x == -100000)
-		julia.c_x = CX_JULIA;
-	julia.maxit = 300;
-	julia.y = -1;
-	julia.color = 1;
-	julia.movex = 0;
-	julia.movey = 0;
-	return (julia);
 }

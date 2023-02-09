@@ -74,16 +74,17 @@ typedef struct s_julia
 	double	z_x;
 	double	prev_z_y;
 	double	prev_z_x;
-	double	z_y2;
-	double	z_x2;
-	double	zoom;
+	double	min_x;
+	double	max_x;
+	double	min_y;
+	double	max_y;
 	int		n;
 	int		maxit;
 	int		x;
 	int		y;
 	int		color;
-	double	movex;
-	double	movey;
+	double	offx;
+	double	offy;
 }	t_julia;
 
 typedef struct s_mandelbrot
@@ -92,15 +93,12 @@ typedef struct s_mandelbrot
 	double	max_x;
 	double	min_y;
 	double	max_y;
-	double	y_factor;
-	double	x_factor;
 	double	c_y;
 	double	c_x;
 	double	z_y;
 	double	z_x;
 	double	prev_z_y;
 	double	prev_z_x;
-	double	zoom;
 	int		n;
 	int		maxit;
 	int		x;
@@ -112,15 +110,38 @@ typedef struct s_mandelbrot
 	double	offy;
 }	t_mdb;
 
+typedef struct s_fractal
+{
+	double	min_x;
+	double	max_x;
+	double	min_y;
+	double	max_y;
+	double	c_y;
+	double	c_x;
+	double	z_y;
+	double	z_x;
+	double	prev_z_y;
+	double	prev_z_x;
+	int		n;
+	int		maxit;
+	int		x;
+	int		y;
+	int		width;
+	int		heigth;
+	int		color;
+	double	offx;
+	double	offy;
+}	t_fract;
+
 typedef struct s_aux
 {
 	int		color;
 	float	offx;
 	float	offy;
-	float	scalex;
-	float	scaley;
-	float	panx;
-	float	pany;
+	double	left;
+	double	rigth;
+	double	up;
+	double	down;
 	double	zoom;
 	t_data	new_img;
 }	t_aux;
@@ -132,23 +153,23 @@ typedef struct s_vars
 	int		imgw;
 	int		imgh;
 	t_data	img;
-	t_mdb	mandb;
-	t_julia	julia;
+	t_fract	fract;
 	t_aux	aux;
 	int		add;
-	int		ismandel;
+	char	isfractal;
 }	t_vars;
 
 /*pixel in an image*/
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	get_color(t_mdb mandelbrot, t_data img);
-void	get_color_julia(t_julia julia, t_data img);
+void	get_color(t_fract mandelbrot, t_data img);
+void	get_color_julia(t_fract julia, t_data img);
+double	screentocomplex(t_vars *vars, int x, int y, int i);
 
 /*Hook functions*/
 int		key_hook(int keycode, t_vars *vars);
 int		mouse_hook(int mousecode, int x, int y, t_vars *vars);
 int		doing_events(t_vars *vars);
-double	zoom_fractal(int mousecode, t_vars *vars, int x, int y);
+void	do_zoom(t_vars *vars, int x, int y, double zoom);
 
 /*Initialize functions*/
 int		initialize_mlx(t_vars *vars, char *argv[]);
@@ -156,17 +177,22 @@ int		initialize_img(t_data *img, t_vars *vars);
 
 /*Main*/
 int		ft_fractal(int a, char *argv[]);
+t_fract	initialize(t_vars *vars, char *argv[]);
 
 /*Mandelbrot*/
 t_mdb	initialize_mandelbrot(char *argv[]);
-int		do_mandelbrot(t_mdb mandelbrot, t_vars *vars, t_data img);
+int		do_mandelbrot(t_fract mandelbrot, t_vars *vars, t_data img);
 int		change_mandelbrot(t_vars *vars);
+double	screentocomplex(t_vars *vars, int x, int y, int i);
 
 /*Julia*/
 int		change_julia(t_vars *vars);
-int		do_julia(t_julia julia, t_vars *vars, t_data img);
+int		do_julia(t_fract julia, t_vars *vars, t_data img);
 t_julia	initialize_julia(char *argv[]);
 double	checkinputc(char *argv[], char a);
+
+/*Burningship*/
+int	do_burnship(t_fract b, t_vars *vars, t_data img);
 
 /*Exit functions*/
 int		esc_window(t_vars *vars);

@@ -20,7 +20,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	get_color(t_mdb mandelbrot, t_data img)
+void	get_color(t_fract mandelbrot, t_data img)
 {
 	int	color;
 	int	i;
@@ -29,20 +29,18 @@ void	get_color(t_mdb mandelbrot, t_data img)
 	color = 0x00000000;
 	while (i)
 	{
-		if (mandelbrot.x == mandelbrot.width / 2 || mandelbrot.y == mandelbrot.heigth / 2)
-			color = 0x00FF0000;
 		if (i == mandelbrot.n)
 		{
 			my_mlx_pixel_put(&img, mandelbrot.x, mandelbrot.y, color);
 			break ;
 		}
-		color += 111 * (i * 2) * mandelbrot.color;
+		color += 111 * (i * 2) + mandelbrot.color;
 		i--;
 	}
 	my_mlx_pixel_put(&img, mandelbrot.x, mandelbrot.y, color);
 }
 
-void	get_color_julia(t_julia julia, t_data img)
+void	get_color_julia(t_fract julia, t_data img)
 {
 	int	color;
 	int	i;
@@ -67,4 +65,15 @@ void	get_color_julia(t_julia julia, t_data img)
 		i--;
 	}
 	my_mlx_pixel_put(&img, julia.x, julia.y, color);
+}
+
+double	screentocomplex(t_vars *vars, int x, int y, int i)
+{
+	double	number;
+
+	if (i == 0)
+		number = (((double)x / vars->imgw) * (vars->fract.max_x - vars->fract.min_x)) * vars->aux.zoom + vars->fract.min_x + vars->fract.offx;
+	else
+		number = (((double)y / vars->imgh) * (vars->fract.max_y - vars->fract.min_y)) * vars->aux.zoom + vars->fract.min_y + vars->fract.offy;
+	return (number);
 }

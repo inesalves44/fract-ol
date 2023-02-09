@@ -33,7 +33,7 @@ int	initialize_mlx(t_vars *vars, char *argv[])
 		ft_printf("Mlx initialization failure.");
 		exit(EXIT_FAILURE);
 	}
-	if (vars->ismandel == 1)
+	if (vars->isfractal == 'm')
 		vars->win = mlx_new_window(vars->mlx, vars->imgw, vars->imgh, \
 				"MandelBrot");
 	else
