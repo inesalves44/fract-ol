@@ -40,27 +40,6 @@ double	ft_atod(char *str)
 	return ((number) * signal);
 }
 
-char	*create_string(char *arg)
-{
-	char	*str;
-	int		i;
-
-	i = 0;
-	str = (char *)malloc(sizeof(char) * (ft_strlen(arg) + 1));
-	if (!str)
-	{
-		ft_printf("couldn't read the args");
-		exit (EXIT_FAILURE);
-	}
-	while (arg[i] != '\0')
-	{
-		str[i] = ft_tolower(arg[i]);
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
-}
-
 void	print_messagewindow(int j, char a)
 {
 	if (j == 0 && a == 'w')

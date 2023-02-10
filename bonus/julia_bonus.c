@@ -14,10 +14,14 @@
 
 int	change_julia(t_vars *vars)
 {
-	vars->fract.color = vars->aux.color;
+	vars->fract.color += vars->aux.color;
 	vars->fract.maxit = 300;
 	vars->fract.x = -1;
 	vars->fract.y = -1;
+	vars->fract.min_x += vars->fract.offx;
+	vars->fract.max_x += vars->fract.offx;
+	vars->fract.min_y += vars->fract.offy;
+	vars->fract.max_y += vars->fract.offy;
 	return (0);
 }
 

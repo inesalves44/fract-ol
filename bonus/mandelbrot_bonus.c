@@ -16,7 +16,7 @@ int	change_mandelbrot(t_vars *vars)
 {
 	vars->fract.maxit = 150;
 	vars->fract.y = -1;
-	vars->fract.color = vars->aux.color;
+	vars->fract.color += vars->aux.color;
 	vars->fract.max_x += vars->fract.offx;
 	vars->fract.min_x += vars->fract.offx;
 	vars->fract.max_y += vars->fract.offy;
@@ -24,7 +24,23 @@ int	change_mandelbrot(t_vars *vars)
 	return (0);
 }
 
-int	do_mandelbrot(t_fract m, t_vars *vars, t_data img)
+int	finish_mand(t_fract m, t_data img)
+{
+	while (++m.n < m.maxit)
+	{
+		m.z_x = (m.prev_z_x * m.prev_z_x) - \
+			(m.prev_z_y * m.prev_z_y) + m.c_x;
+		m.z_y = 2 * m.prev_z_y * m.prev_z_x + m.c_y;
+		if ((m.z_y * m.z_y + m.z_x * m.z_x) > 4)
+			break ;
+		m.prev_z_x = m.z_x;
+		m.prev_z_y = m.z_y;
+	}
+	get_color(m, img);
+	return (0);
+}
+
+int	do_mdb_burns(t_fract m, t_vars *vars, t_data img)
 {
 	while (++m.y < m.heigth)
 	{
@@ -36,17 +52,10 @@ int	do_mandelbrot(t_fract m, t_vars *vars, t_data img)
 			m.prev_z_x = 0 ;
 			m.prev_z_y = 0;
 			m.n = -1;
-			while (++m.n < m.maxit)
-			{
-				m.z_x = (m.prev_z_x * m.prev_z_x) - \
-						(m.prev_z_y * m.prev_z_y) + m.c_x;
-				m.z_y = 2 * m.prev_z_y * m.prev_z_x + m.c_y;
-				if ((m.z_y * m.z_y + m.z_x * m.z_x) > 4)
-					break ;
-				m.prev_z_x = m.z_x;
-				m.prev_z_y = m.z_y;
-			}
-			get_color(m, img);
+			if (vars->isfractal == 'm')
+				finish_mand(m, img);
+			else if (vars->isfractal == 'b')
+				finish_burnship(m, img);
 		}
 	}
 	mlx_put_image_to_window(vars->mlx, vars->win, img.img, 0, 0);

@@ -72,8 +72,12 @@ double	screentocomplex(t_vars *vars, int x, int y, int i)
 	double	number;
 
 	if (i == 0)
-		number = (((double)x / vars->imgw) * (vars->fract.max_x - vars->fract.min_x)) * vars->aux.zoom + vars->fract.min_x + vars->fract.offx;
+		number = (((double)x / vars->imgw) * (vars->fract.max_x - \
+		vars->fract.min_x)) * vars->fract.zoom + vars->fract.min_x + \
+		vars->fract.offx;
 	else
-		number = (((double)y / vars->imgh) * (vars->fract.max_y - vars->fract.min_y)) * vars->aux.zoom + vars->fract.min_y + vars->fract.offy;
+		number = (((double)y / vars->imgh) * (vars->fract.max_y - \
+		vars->fract.min_y)) * vars->fract.zoom + vars->fract.min_y + \
+		vars->fract.offy;
 	return (number);
 }

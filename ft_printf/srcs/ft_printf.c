@@ -37,6 +37,8 @@ int	ft_args(va_list args, char c)
 		print += ft_printhexa(va_arg(args, unsigned int), 1);
 	else if (c == 'X')
 		print += ft_printhexa(va_arg(args, unsigned int), 2);
+	else if (c == 'f')
+		print += ft_printfloat(va_arg(args, double));
 	return (print);
 }
 

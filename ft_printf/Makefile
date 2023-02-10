@@ -22,7 +22,7 @@ OBJS_LIBFT		=	libft/ft_isalnum.o libft/ft_isalpha.o libft/ft_isascii.o libft/ft_
 BONUS			=	libft/ft_lstadd_back.o libft/ft_lstadd_front.o libft/ft_lstclear.o \
 					libft/ft_lstdelone.o libft/ft_lstiter.o libft/ft_lstlast.o \
 					libft/ft_lstmap.o libft/ft_lstnew.o libft/ft_lstsize.o
-OBJS			=	srcs/ft_printf.o srcs/ft_printhexa.o srcs/ft_print_simple.o srcs/ft_printunsigned.o srcs/ft_pointer.o
+OBJS			=	srcs/ft_printf.o srcs/ft_printhexa.o srcs/ft_print_simple.o srcs/ft_printunsigned.o srcs/ft_pointer.o srcs/ft_printf_float.o
 OBJS_GNL		=	gnl/get_next_line.o gnl/get_next_line_utils.o gnl/get_next_line_bonus.o \
 				   	gnl/get_next_line_utils_bonus.o
 CC				= cc
@@ -36,7 +36,7 @@ all:			$(NAME)
 $(NAME):		$(OBJS) $(OBJS_GNL)
 				$(MAKE) bonus -C libft
 				ar rcs $(NAME) $(OBJS) $(OBJS_GNL) $(OBJS_LIBFT)
-				
+
 clean:
 				$(MAKE) clean -C libft
 				$(RM) $(OBJS) $(OBJS_LIBFT) $(OBJS_GNL)

@@ -64,52 +64,6 @@ typedef struct s_data
 	int		endian;
 }	t_data;
 
-typedef struct s_julia
-{
-	int		width;
-	int		heigth;
-	double	c_y;
-	double	c_x;
-	double	z_y;
-	double	z_x;
-	double	prev_z_y;
-	double	prev_z_x;
-	double	min_x;
-	double	max_x;
-	double	min_y;
-	double	max_y;
-	int		n;
-	int		maxit;
-	int		x;
-	int		y;
-	int		color;
-	double	offx;
-	double	offy;
-}	t_julia;
-
-typedef struct s_mandelbrot
-{
-	double	min_x;
-	double	max_x;
-	double	min_y;
-	double	max_y;
-	double	c_y;
-	double	c_x;
-	double	z_y;
-	double	z_x;
-	double	prev_z_y;
-	double	prev_z_x;
-	int		n;
-	int		maxit;
-	int		x;
-	int		y;
-	int		width;
-	int		heigth;
-	int		color;
-	double	offx;
-	double	offy;
-}	t_mdb;
-
 typedef struct s_fractal
 {
 	double	min_x;
@@ -131,6 +85,7 @@ typedef struct s_fractal
 	int		color;
 	double	offx;
 	double	offy;
+	double	zoom;
 }	t_fract;
 
 typedef struct s_aux
@@ -159,47 +114,48 @@ typedef struct s_vars
 	char	isfractal;
 }	t_vars;
 
+/*Main*/
+void	prep_julia(t_fract *fractol, char *argv[]);
+t_fract	initialize(t_vars *vars, char *argv[]);
+int		ft_fractal(int a, char *argv[]);
+t_fract	initialize(t_vars *vars, char *argv[]);
+void	checking_fractal(char *argv[]);
+
+/*Exit functions*/
+int		esc_window(t_vars *vars);
+void	ft_comments(int a);
+
+/*Julia*/
+int		change_julia(t_vars *vars);
+int		do_julia(t_fract julia, t_vars *vars, t_data img);
+double	checkinputc(char *argv[], char a);
+
+/*Mandelbrot*/
+int	do_mdb_burns(t_fract m, t_vars *vars, t_data img);
+int	finish_mand(t_fract m, t_data img);
+int		change_mandelbrot(t_vars *vars);
+
+/*Burningship*/
+int	finish_burnship(t_fract b, t_data img);
+
 /*pixel in an image*/
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	get_color(t_fract mandelbrot, t_data img);
 void	get_color_julia(t_fract julia, t_data img);
 double	screentocomplex(t_vars *vars, int x, int y, int i);
 
+/*fractol_utils*/
+double	ft_atod(char *str);
+int		check_windowinput(char *argv[], char a, int j);
+
 /*Hook functions*/
 int		key_hook(int keycode, t_vars *vars);
 int		mouse_hook(int mousecode, int x, int y, t_vars *vars);
 int		doing_events(t_vars *vars);
-void	do_zoom(t_vars *vars, int x, int y, double zoom);
+void	do_zoom(t_vars *vars, int x, int y);
 
 /*Initialize functions*/
 int		initialize_mlx(t_vars *vars, char *argv[]);
 int		initialize_img(t_data *img, t_vars *vars);
 
-/*Main*/
-int		ft_fractal(int a, char *argv[]);
-t_fract	initialize(t_vars *vars, char *argv[]);
-
-/*Mandelbrot*/
-t_mdb	initialize_mandelbrot(char *argv[]);
-int		do_mandelbrot(t_fract mandelbrot, t_vars *vars, t_data img);
-int		change_mandelbrot(t_vars *vars);
-double	screentocomplex(t_vars *vars, int x, int y, int i);
-
-/*Julia*/
-int		change_julia(t_vars *vars);
-int		do_julia(t_fract julia, t_vars *vars, t_data img);
-t_julia	initialize_julia(char *argv[]);
-double	checkinputc(char *argv[], char a);
-
-/*Burningship*/
-int	do_burnship(t_fract b, t_vars *vars, t_data img);
-
-/*Exit functions*/
-int		esc_window(t_vars *vars);
-void	ft_comments(int a);
-
-/*fractol_utils*/
-double	ft_atod(char *str);
-char	*create_string(char *arg);
-int		check_windowinput(char *argv[], char a, int j);
 #endif
