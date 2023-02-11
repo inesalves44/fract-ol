@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_mlx.c                                         :+:      :+:    :+:   */
+/*   init_mlx_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: idias-al <idias-al@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 12:09:25 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/04 15:59:36 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/10 22:43:29 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,18 @@ int	initialize_mlx(t_vars *vars, char *argv[])
 {
 	get_window(vars, argv);
 	vars->add = 0;
-	vars->mlx = mlx_init();
-	if (!vars->mlx)
+	//vars->mlx = mlx_init();
+	/*if (!vars->mlx)
 	{
 		ft_printf("Mlx initialization failure.");
 		exit(EXIT_FAILURE);
-	}
+	}*/
 	if (vars->isfractal == 'm')
 		vars->win = mlx_new_window(vars->mlx, vars->imgw, vars->imgh, \
 				"MandelBrot");
+	else if (vars->isfractal == 'b')
+		vars->win = mlx_new_window(vars->mlx, vars->imgw, vars->imgh, \
+				"Burning Ship");
 	else
 		vars->win = mlx_new_window(vars->mlx, vars->imgw, vars->imgh, "Julia");
 	if (!vars->win)

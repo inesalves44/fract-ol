@@ -12,20 +12,38 @@
 
 #include "../incs/fractol_bonus.h"
 
+int	checking_keycode(int keycode, t_vars *vars)
+{
+	if (keycode == SPACE)
+	{
+		vars->aux.color += 250;
+		vars->fract.color = 'p';
+	}
+	else if (keycode == ARR_LEFT)
+		vars->aux.left = (-0.05) * vars->fract.zoom;
+	else if (keycode == ARR_RIGHT)
+		vars->aux.rigth = 0.05 * vars->fract.zoom;
+	else if (keycode == ARR_DOWN)
+		vars->aux.down = (-0.05) * vars->fract.zoom;
+	else if (keycode == ARR_UP)
+		vars->aux.up = 0.05 * vars->fract.zoom;
+	else if (keycode == 114)
+		vars->fract.colorsch = 'r';
+	else if (keycode == 98)
+		vars->fract.colorsch = 'b';
+	else if (keycode == 103)
+		vars->fract.colorsch = 'g';
+	else if (keycode == 112)
+		vars->fract.colorsch = 'p';
+	return (0);
+}
+
 int	key_hook(int keycode, t_vars *vars)
 {
 	if (keycode == ESC)
 		esc_window(vars);
-	else if (keycode == SPACE)
-		vars->aux.color += 250;
-	else if (keycode == ARR_LEFT)
-		vars->fract.offx -= 0.05 * vars->fract.zoom;
-	else if (keycode == ARR_RIGHT)
-		vars->fract.offx += 0.05 * vars->fract.zoom;
-	else if (keycode == ARR_DOWN)
-		vars->fract.offy -= 0.05 * vars->fract.zoom;
-	else if (keycode == ARR_UP)
-		vars->fract.offy += 0.05 * vars->fract.zoom;
+	else
+		checking_keycode(keycode, vars);
 	if (vars->isfractal == 'm' || vars->isfractal == 'b')
 		change_mandelbrot(vars);
 	else
@@ -45,6 +63,7 @@ int	doing_events(t_vars *vars)
 {
 	mlx_mouse_hook(vars->win, &mouse_hook, vars);
 	mlx_hook(vars->win, 17, 0, &esc_window, vars);
+	mlx_hook(vars->win2, 17, 0, &esc_window2, vars);
 	mlx_key_hook(vars->win, &key_hook, vars);
 	return (0);
 }

@@ -24,8 +24,8 @@ void	do_zoom(t_vars *vars, int x, int y)
 	vars->fract.zoom = vars->aux.zoom;
 	newc_x = screentocomplex(vars, x, y, 0);
 	newc_y = screentocomplex(vars, x, y, 1);
-	vars->fract.offx = (c_x - newc_x);
-	vars->fract.offy = (c_y - newc_y);
+	vars->aux.offx = (c_x - newc_x);
+	vars->aux.offy = (c_y - newc_y);
 }
 
 void	prepare_zoom(int mousecode, t_vars *vars, int x, int y)

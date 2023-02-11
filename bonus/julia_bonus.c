@@ -14,15 +14,37 @@
 
 int	change_julia(t_vars *vars)
 {
-	vars->fract.color += vars->aux.color;
+	if (vars->fract.colorsch == 'p')
+		vars->fract.color += vars->aux.color;
 	vars->fract.maxit = 300;
-	vars->fract.x = -1;
 	vars->fract.y = -1;
-	vars->fract.min_x += vars->fract.offx;
-	vars->fract.max_x += vars->fract.offx;
-	vars->fract.min_y += vars->fract.offy;
-	vars->fract.max_y += vars->fract.offy;
+	vars->fract.offx = vars->aux.offx;
+	vars->fract.offy = vars->aux.offy;
+	vars->fract.max_x += vars->fract.offx + vars->aux.left + vars->aux.rigth;
+	vars->fract.min_x += vars->fract.offx + vars->aux.left + vars->aux.rigth;
+	vars->fract.max_y += vars->fract.offy + vars->aux.up + vars->aux.down;
+	vars->fract.min_y += vars->fract.offy + vars->aux.up + vars->aux.down;
+	vars->aux.left = 0;
+	vars->aux.rigth = 0;
+	vars->aux.up = 0;
+	vars->aux.down = 0;
+	vars->aux.offx = 0;
+	vars->aux.offy = 0;
 	return (0);
+}
+
+void	getting_color(t_fract j, t_data img)
+{
+	if (j.colorsch == 'r' && j.n != j.maxit)
+		my_mlx_pixel_put(&img, j.x, j.y, get_r(j.n));
+	else if (j.colorsch == 'b' && j.n != j.maxit)
+		my_mlx_pixel_put(&img, j.x, j.y, get_b(j.n));
+	else if (j.colorsch == 'g' && j.n != j.maxit)
+		my_mlx_pixel_put(&img, j.x, j.y, get_g(j.n));
+	else if (j.colorsch == 'p' && j.n != j.maxit)
+		get_color_julia(j, img);
+	else if (j.n == j.maxit)
+		my_mlx_pixel_put(&img, j.x, j.y, 0x000000);
 }
 
 int	do_julia(t_fract j, t_vars *vars, t_data img)
@@ -45,7 +67,7 @@ int	do_julia(t_fract j, t_vars *vars, t_data img)
 				if ((j.z_y * j.z_y + j.z_x * j.z_x) > 4)
 					break ;
 			}
-			get_color_julia(j, img);
+			getting_color(j, img);
 		}
 	}
 	mlx_put_image_to_window(vars->mlx, vars->win, img.img, 0, 0);

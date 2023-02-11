@@ -30,5 +30,6 @@ int	ft_printf(const char *str, ...);
 int	ft_args(va_list args, char c);
 int	ft_printhexapointer(unsigned long long int n);
 int	ft_longhex(unsigned long long int n);
+int	ft_printfloat(double number);
 
 #endif
