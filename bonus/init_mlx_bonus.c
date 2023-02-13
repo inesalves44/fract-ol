@@ -27,12 +27,6 @@ int	initialize_mlx(t_vars *vars, char *argv[])
 {
 	get_window(vars, argv);
 	vars->add = 0;
-	//vars->mlx = mlx_init();
-	/*if (!vars->mlx)
-	{
-		ft_printf("Mlx initialization failure.");
-		exit(EXIT_FAILURE);
-	}*/
 	if (vars->isfractal == 'm')
 		vars->win = mlx_new_window(vars->mlx, vars->imgw, vars->imgh, \
 				"MandelBrot");

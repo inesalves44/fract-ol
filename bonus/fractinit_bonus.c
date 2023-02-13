@@ -70,7 +70,7 @@ void	initother(t_fract *fract, t_aux *aux)
 	fract->y = -1;
 }
 
-int	ft_fractal(int a, char *argv[], t_vars vars)
+int	ft_fractal(int a, char *argv[], t_vars vars, char *str)
 {
 	if (a == 1)
 		vars.isfractal = 'm';
@@ -87,6 +87,7 @@ int	ft_fractal(int a, char *argv[], t_vars vars)
 	else
 		do_julia(vars.fract, &vars, vars.img);
 	writing_to2window(vars);
+	free (str);
 	doing_events(&vars);
 	mlx_loop(vars.mlx);
 	return (0);
@@ -97,12 +98,17 @@ int	checking_fractal(char *str, char *argv[], t_vars vars)
 	char	*str1;
 
 	if (!ft_strncmp(str, "mandelbrot", 10) || !ft_strncmp(str, "1", 1))
-		ft_fractal(1, argv, vars);
+		ft_fractal(1, argv, vars, str);
 	else if (!ft_strncmp(str, "julia", 5) || !ft_strncmp(str, "2", 1))
-		ft_fractal(2, argv, vars);
+		ft_fractal(2, argv, vars, str);
 	else if (!strncmp(str, "burningship", 11) \
 		|| !ft_strncmp(str, "3", 1))
-		ft_fractal(3, argv, vars);
+		ft_fractal(3, argv, vars, str);
+	if (!strncmp(str, "quit", 4))
+	{
+		free(str);
+		esc_window2(&vars);
+	}
 	else
 	{
 		ft_printf("No known fractals. Please input again:\n");
@@ -111,6 +117,5 @@ int	checking_fractal(char *str, char *argv[], t_vars vars)
 		checking_fractal(str1, argv, vars);
 		return (1);
 	}
-	free (str);
 	return (0);
 }

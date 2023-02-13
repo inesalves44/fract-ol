@@ -62,8 +62,10 @@ int	key_hook(int keycode, t_vars *vars)
 int	doing_events(t_vars *vars)
 {
 	mlx_mouse_hook(vars->win, &mouse_hook, vars);
+	mlx_mouse_hook(vars->win2, &mouse_hook2, vars);
 	mlx_hook(vars->win, 17, 0, &esc_window, vars);
-	mlx_hook(vars->win2, 17, 0, &esc_window2, vars);
+	mlx_hook(vars->win2, 17, 0, &esc_window, vars);
 	mlx_key_hook(vars->win, &key_hook, vars);
+	mlx_key_hook(vars->win2, &key_hook, vars);
 	return (0);
 }

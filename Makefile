@@ -15,7 +15,7 @@ OBJS	=	mandatory/main.o mandatory/init_mlx.o mandatory/exit_errors.o mandatory/h
 
 BONUS	=	bonus/fractinit_bonus.o bonus/init_mlx_bonus.o bonus/exit_errors_bonus.o bonus/mandelbrot_bonus.o\
 			bonus/imgpixel_bonus.o bonus/julia_bonus.o bonus/fractol_utils_bonus.o bonus/keyhooks_bonus.o bonus/mousehooks_bonus.o\
-			bonus/burngship.o bonus/color.o bonus/main.o
+			bonus/burngship.o bonus/color.o bonus/main.o bonus/window2utils.o
 
 CC		= cc
 CFLAGS	= -Wextra -Wall -Werror -g

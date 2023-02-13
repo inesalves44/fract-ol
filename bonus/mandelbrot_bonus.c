@@ -27,6 +27,7 @@ int	change_mandelbrot(t_vars *vars)
 	vars->aux.left = 0;
 	vars->aux.rigth = 0;
 	vars->aux.down = 0;
+	vars->aux.up = 0;
 	vars->aux.offx = 0;
 	vars->aux.offy = 0;
 	return (0);

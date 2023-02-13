@@ -119,9 +119,9 @@ typedef struct s_vars
 /*Fractinit*/
 void	prep_julia(t_fract *fractol, char *argv[]);
 t_fract	initialize(t_vars *vars, char *argv[]);
-int		ft_fractal(int a, char *argv[], t_vars vars);
+int		ft_fractal(int a, char *argv[], t_vars vars, char *str);
 t_fract	initialize(t_vars *vars, char *argv[]);
-int	checking_fractal(char *str, char *argv[], t_vars vars);
+int		checking_fractal(char *str, char *argv[], t_vars vars);
 
 /*Exit functions*/
 int		esc_window(t_vars *vars);
@@ -161,9 +161,15 @@ int		key_hook(int keycode, t_vars *vars);
 int		mouse_hook(int mousecode, int x, int y, t_vars *vars);
 int		doing_events(t_vars *vars);
 void	do_zoom(t_vars *vars, int x, int y);
+int		mouse_hook2(int mousecode, int x, int y, t_vars *vars);
 
 /*Initialize functions*/
 int		initialize_mlx(t_vars *vars, char *argv[]);
 int		initialize_img(t_data *img, t_vars *vars);
 
+/*Window2*/
+void	doingfirstsquare(t_vars vars);
+void	doingsecondsquare(t_vars vars);
+void	doingthirdsquare(t_vars vars);
+void	doingfourthsquare(t_vars vars);
 #endif

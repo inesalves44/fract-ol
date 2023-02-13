@@ -57,12 +57,31 @@ int	mouse_hook(int mousecode, int x, int y, t_vars *vars)
 	{
 		vars->fract.c_x = screentocomplex(vars, x, y, 0);
 		vars->fract.c_y = screentocomplex(vars, x, y, 1);
+		ft_printf("New values of the complex variables:\n");
+		ft_printf("value in x: %f\n", vars->fract.c_x);
+		ft_printf("value in y: %f\n", vars->fract.c_y);
 		change_julia(vars);
 		if (vars->add >= 1)
 			mlx_destroy_image(vars->mlx, vars->aux.new_img.img);
 		initialize_img(&vars->aux.new_img, vars);
 		do_julia(vars->fract, vars, vars->aux.new_img);
 		vars->add++;
+	}
+	return (0);
+}
+
+int	mouse_hook2(int mousecode, int x, int y, t_vars *vars)
+{
+	if (mousecode == 1)
+	{
+		if (x > 1 && x < 140 && y > 40 && y < 100)
+			key_hook(114, vars);
+		else if (x > 150 && x < 298 && y > 40 && y < 100)
+			key_hook(103, vars);
+		else if (x > 1 && x < 140 && y > 105 && y < 165)
+			key_hook(98, vars);
+		else if (x > 150 && x < 298 && y > 105 && y < 165)
+			key_hook(112, vars);
 	}
 	return (0);
 }
