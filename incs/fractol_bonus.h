@@ -87,6 +87,7 @@ typedef struct s_fractal
 	double	offy;
 	double	zoom;
 	char	colorsch;
+	char	*args[];
 }	t_fract;
 
 typedef struct s_aux
@@ -117,16 +118,22 @@ typedef struct s_vars
 }	t_vars;
 
 /*Fractinit*/
-void	prep_julia(t_fract *fractol, char *argv[]);
-t_fract	initialize(t_vars *vars, char *argv[]);
+void	prep_julia(t_fract *fractol);
+t_fract	initialize(t_vars *vars);
 int		ft_fractal(int a, char *argv[], t_vars vars, char *str);
-t_fract	initialize(t_vars *vars, char *argv[]);
+void	initother(t_fract *fract, t_aux *aux);
 int		checking_fractal(char *str, char *argv[], t_vars vars);
+
+/*Main*/
+void	writeoptions(t_vars vars);
+void	writeinwindow(t_vars *vars);
 
 /*Exit functions*/
 int		esc_window(t_vars *vars);
 int		esc_window2(t_vars *vars);
 void	writing_to2window(t_vars vars);
+void	doingsquare_fract3(t_vars vars);
+void	doingsquare_fract1(t_vars vars);
 
 /*Julia*/
 int		change_julia(t_vars *vars);
@@ -172,4 +179,5 @@ void	doingfirstsquare(t_vars vars);
 void	doingsecondsquare(t_vars vars);
 void	doingthirdsquare(t_vars vars);
 void	doingfourthsquare(t_vars vars);
+void	doingsquare_fract2(t_vars vars);
 #endif

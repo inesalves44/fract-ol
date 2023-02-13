@@ -12,29 +12,25 @@
 
 #include "../incs/fractol_bonus.h"
 
-void	prep_julia(t_fract *fractol, char *argv[])
+void	prep_julia(t_fract *fractol)
 {
 	fractol->max_x = 2;
 	fractol->max_y = 1.5;
 	fractol->min_x = -2;
 	fractol->min_y = -1.5;
 	fractol->maxit = 300;
-	fractol->c_y = checkinputc(argv, 'y');
-	if (fractol->c_y == -100000)
-		fractol->c_y = CY_JULIA;
-	fractol->c_x = checkinputc(argv, 'x');
-	if (fractol->c_x == -100000)
-		fractol->c_x = CX_JULIA;
+	fractol->c_y = CY_JULIA;
+	fractol->c_x = CX_JULIA;
 }
 
-t_fract	initialize(t_vars *vars, char *argv[])
+t_fract	initialize(t_vars *vars)
 {
 	t_fract	fractol;
 
 	fractol.width = vars->imgw;
 	fractol.heigth = vars->imgh;
 	if (vars->isfractal == 'j')
-		prep_julia(&fractol, argv);
+		prep_julia(&fractol);
 	else if (vars->isfractal == 'm' || vars->isfractal == 'b')
 	{
 		fractol.min_x = -2.05859375;
@@ -72,6 +68,7 @@ void	initother(t_fract *fract, t_aux *aux)
 
 int	ft_fractal(int a, char *argv[], t_vars vars, char *str)
 {
+	(void)argv;
 	if (a == 1)
 		vars.isfractal = 'm';
 	else if (a == 3)
@@ -80,7 +77,7 @@ int	ft_fractal(int a, char *argv[], t_vars vars, char *str)
 		vars.isfractal = 'j';
 	initialize_mlx(&vars, argv);
 	initialize_img(&vars.img, &vars);
-	vars.fract = initialize(&vars, argv);
+	vars.fract = initialize(&vars);
 	initother(&vars.fract, &vars.aux);
 	if (a == 1 || a == 3)
 		do_mdb_burns(vars.fract, &vars, vars.img);
@@ -101,7 +98,7 @@ int	checking_fractal(char *str, char *argv[], t_vars vars)
 		ft_fractal(1, argv, vars, str);
 	else if (!ft_strncmp(str, "julia", 5) || !ft_strncmp(str, "2", 1))
 		ft_fractal(2, argv, vars, str);
-	else if (!strncmp(str, "burningship", 11) \
+	else if (!strncmp(str, "burning ship", 11) \
 		|| !ft_strncmp(str, "3", 1))
 		ft_fractal(3, argv, vars, str);
 	if (!strncmp(str, "quit", 4))

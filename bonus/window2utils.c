@@ -101,3 +101,25 @@ void	doingfourthsquare(t_vars vars)
 	mlx_string_put(vars.mlx, vars.win2, 155, 155, 0xFFFFFFFF, \
 	"Also press SPACE.");
 }
+
+void	doingsquare_fract2(t_vars vars)
+{
+	int	x;
+	int	y;
+
+	x = 1;
+	while (x < 140)
+	{
+		y = 360;
+		while (y < 400)
+		{
+			mlx_pixel_put(vars.mlx, vars.win2, x, y, 0xFFFFFFFF);
+			y++;
+		}
+		x++;
+	}
+	mlx_string_put(vars.mlx, vars.win2, 5, 370, 0x00000000, "For Burning Ship");
+	mlx_string_put(vars.mlx, vars.win2, 5, 380, 0x00000000, "or");
+	mlx_string_put(vars.mlx, vars.win2, 5, 390, 0x00000000, \
+	"Press 's' button.");
+}

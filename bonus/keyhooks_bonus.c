@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   keyhooks_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: idias-al <idias-al@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,6 +11,28 @@
 /* ************************************************************************** */
 
 #include "../incs/fractol_bonus.h"
+
+int	switchingfractals(int keycode, t_vars *vars)
+{
+	if (keycode == 115)
+		vars->isfractal = 'b';
+	else if (keycode == 109)
+		vars->isfractal = 'm';
+	else if (keycode == 106)
+		vars->isfractal = 'j';
+	vars->fract = initialize(vars);
+	initother(&vars->fract, &vars->aux);
+	if (vars->add >= 1)
+		mlx_destroy_image(vars->mlx, vars->aux.new_img.img);
+	initialize_img(&vars->aux.new_img, vars);
+	writing_to2window(*vars);
+	if (vars->isfractal == 'm' || vars->isfractal == 'b')
+		do_mdb_burns(vars->fract, vars, vars->aux.new_img);
+	else
+		do_julia(vars->fract, vars, vars->aux.new_img);
+	vars->add++;
+	return (0);
+}
 
 int	checking_keycode(int keycode, t_vars *vars)
 {
@@ -35,6 +57,8 @@ int	checking_keycode(int keycode, t_vars *vars)
 		vars->fract.colorsch = 'g';
 	else if (keycode == 112)
 		vars->fract.colorsch = 'p';
+	else if (keycode == 106 || keycode == 109 || keycode == 115)
+		switchingfractals(keycode, vars);
 	return (0);
 }
 
