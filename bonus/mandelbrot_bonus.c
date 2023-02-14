@@ -16,11 +16,20 @@ int	change_mandelbrot(t_vars *vars)
 {
 	vars->fract.maxit = 150;
 	vars->fract.y = -1;
-	vars->fract.color += vars->aux.color;
-	vars->fract.max_x += vars->fract.offx;
-	vars->fract.min_x += vars->fract.offx;
-	vars->fract.max_y += vars->fract.offy;
-	vars->fract.min_y += vars->fract.offy;
+	if (vars->fract.colorsch == 'p')
+		vars->fract.color += vars->aux.color;
+	vars->fract.offx = vars->aux.offx;
+	vars->fract.offy = vars->aux.offy;
+	vars->fract.max_x += vars->fract.offx + vars->aux.left + vars->aux.rigth;
+	vars->fract.min_x += vars->fract.offx + vars->aux.left + vars->aux.rigth;
+	vars->fract.max_y += vars->fract.offy + vars->aux.up + vars->aux.down;
+	vars->fract.min_y += vars->fract.offy + vars->aux.up + vars->aux.down;
+	vars->aux.left = 0;
+	vars->aux.rigth = 0;
+	vars->aux.down = 0;
+	vars->aux.up = 0;
+	vars->aux.offx = 0;
+	vars->aux.offy = 0;
 	return (0);
 }
 
@@ -36,7 +45,16 @@ int	finish_mand(t_fract m, t_data img)
 		m.prev_z_x = m.z_x;
 		m.prev_z_y = m.z_y;
 	}
-	get_color(m, img);
+	if (m.colorsch == 'r' && m.n != m.maxit)
+		my_mlx_pixel_put(&img, m.x, m.y, get_r(m.n));
+	else if (m.colorsch == 'b' && m.n != m.maxit)
+		my_mlx_pixel_put(&img, m.x, m.y, get_b(m.n));
+	else if (m.colorsch == 'g' && m.n != m.maxit)
+		my_mlx_pixel_put(&img, m.x, m.y, get_g(m.n));
+	else if (m.colorsch == 'p' && m.n != m.maxit)
+		get_color(m, img);
+	else if (m.n == m.maxit)
+		my_mlx_pixel_put(&img, m.x, m.y, 0x000000);
 	return (0);
 }
 

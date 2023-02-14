@@ -25,6 +25,15 @@ int	finish_burnship(t_fract b, t_data img)
 		b.prev_z_x = b.z_x;
 		b.prev_z_y = b.z_y;
 	}
-	get_color(b, img);
+	if (b.colorsch == 'r' && b.n != b.maxit)
+		my_mlx_pixel_put(&img, b.x, b.y, get_r(b.n));
+	else if (b.colorsch == 'b' && b.n != b.maxit)
+		my_mlx_pixel_put(&img, b.x, b.y, get_b(b.n));
+	else if (b.colorsch == 'g' && b.n != b.maxit)
+		my_mlx_pixel_put(&img, b.x, b.y, get_g(b.n));
+	else if (b.colorsch == 'p' && b.n != b.maxit)
+		get_color(b, img);
+	else if (b.n == b.maxit)
+		my_mlx_pixel_put(&img, b.x, b.y, 0x000000);
 	return (0);
 }
