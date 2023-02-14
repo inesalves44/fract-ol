@@ -21,7 +21,6 @@ int	get_floatlen(double number)
 		number *= (-1);
 	while (number > 1)
 	{
-		printf("%f\n", number);
 		number /= 10;
 		a++;
 	}
@@ -32,18 +31,26 @@ int	get_floatlen(double number)
 int	ft_printfloat(double number)
 {
 	int		len;
+	double	decimal;
 	char	*str;
 	int		i;
 
 	len = get_floatlen(number) + 1;
+	decimal = number - (int)number;
 	i = len;
 	str = (char *)malloc(sizeof(char) * len);
 	if (!str)
 		return (0);
 	str[--i] = '\0';
+	i = i - 7;
 	while (i)
 	{
-		str[i]
+		printf("number int: %d\n", (int) number % 10);
+		str[i] = (int)number % 10 + '0';
+		printf("str: %c\n", str[i]);
+		number /= 10;
+		printf("number: %f\n", number);
+		i--;
 	}
 	return(len);
 }
