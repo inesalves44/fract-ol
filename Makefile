@@ -26,6 +26,7 @@ LIBFTPRINTF = libftprintf.a
 all:	$(NAME)
 
 $(NAME): $(OBJS)
+		$(MAKE) -C mlx
 		$(MAKE) -C ft_printf
 		cp ft_printf/$(LIBFTPRINTF) $(LIBFTPRINTF)
 		$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFTPRINTF) $(MINILB)
