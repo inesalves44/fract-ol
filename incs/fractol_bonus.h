@@ -87,7 +87,6 @@ typedef struct s_fractal
 	double	offy;
 	double	zoom;
 	char	colorsch;
-	char	*args[];
 }	t_fract;
 
 typedef struct s_aux
@@ -110,11 +109,11 @@ typedef struct s_vars
 	void	*win2;
 	int		imgw;
 	int		imgh;
+	int		add;
+	char	isfractal;
 	t_data	img;
 	t_fract	fract;
 	t_aux	aux;
-	int		add;
-	char	isfractal;
 }	t_vars;
 
 /*Fractinit*/
