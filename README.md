@@ -58,17 +58,22 @@ After reading the input from the terminal we have this prompt:
 This window shows you the rendering options!
 
 ### Mandelbrot
-gif Mandelbrot
+
+![mandelbrot](https://user-images.githubusercontent.com/105734074/219144763-f38e5d2c-050b-4294-9b38-336a6e436090.gif)
+
+zoom
 
 ### Julia 
 
-Gif JUlia
+![julia](https://user-images.githubusercontent.com/105734074/219143714-0f892836-7a08-4a55-af68-12a02da54a17.gif)
+
+zoom + changing inputs and colors!
 
 ### Burning Ship
 
-gif bs
+![bs](https://user-images.githubusercontent.com/105734074/219145772-2be9ce69-1cca-4653-b092-69d57c48a2f0.gif)
 
-good luck :)
+The Burning Ship is a fractal that works with the module of mandelbrot!
+
 
 intra idias-al
-
