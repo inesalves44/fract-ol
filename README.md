@@ -51,6 +51,6 @@ Then this window will be displayed and you should input in the terminal one of t
 
 ![Screenshot from 2023-02-14 20-12-07](https://user-images.githubusercontent.com/105734074/218851111-6bd98990-665b-4d65-bf0d-f2555e2f40c5.png)
 
-After the input:
+After reading the input from the terminal we have this prompt:
 
 
