@@ -22,15 +22,28 @@ int	change_julia(t_vars *vars, double zoom)
 	return (0);
 }
 
+double	screentocomplex(t_vars *vars, int x, int y, int i)
+{
+	double	number;
+
+	if (i == 0)
+		number = (((double)x / vars->imgw) * (vars->julia.max_x - \
+		vars->julia.min_x)) * vars->julia.zoom + vars->julia.min_x;
+	else
+		number = (((double)y / vars->imgh) * (vars->julia.max_y - \
+		vars->julia.min_y)) * vars->julia.zoom + vars->julia.min_y;
+	return (number);
+}
+
 int	do_julia(t_julia j, t_vars *vars, t_data img)
 {
 	while (++j.y < j.heigth)
 	{
 		j.x = -1;
 		while (++j.x < j.width)
-		{	
-			j.z_x = 1.5 * (j.x - j.width / 2) / (0.5 * j.zoom * j.width);
-			j.z_y = (j.y - j.heigth / 2) / (0.5 * j.zoom * j.heigth);
+		{
+			j.z_x = screentocomplex(vars, j.x, j.y, 0);
+			j.z_y = screentocomplex(vars, j.x, j.y, 1);
 			j.n = -1;
 			while (++j.n < j.maxit)
 			{
@@ -93,6 +106,10 @@ t_julia	initialize_julia(char *argv[])
 	julia.c_x = checkinputc(argv, 'x');
 	if (julia.c_x == -100000)
 		julia.c_x = CX_JULIA;
+	julia.max_x = 2;
+	julia.max_y = 1.5;
+	julia.min_x = -2;
+	julia.min_y = -1.5;
 	julia.maxit = 300;
 	julia.y = -1;
 	return (julia);

@@ -80,6 +80,10 @@ typedef struct s_julia
 	int		maxit;
 	int		x;
 	int		y;
+	double	min_x;
+	double	max_x;
+	double	min_y;
+	double	max_y;
 }	t_julia;
 
 typedef struct s_mandelbrot
