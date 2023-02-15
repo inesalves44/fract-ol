@@ -53,4 +53,22 @@ Then this window will be displayed and you should input in the terminal one of t
 
 After reading the input from the terminal we have this prompt:
 
+![Screenshot from 2023-02-15 19-58-06](https://user-images.githubusercontent.com/105734074/219139128-f4f69ea1-c7c5-41d0-ba58-1ac314c8ea08.png)
+
+This window shows you the rendering options!
+
+### Mandelbrot
+gif Mandelbrot
+
+### Julia 
+
+Gif JUlia
+
+### Burning Ship
+
+gif bs
+
+good luck :)
+
+intra idias-al
 
