@@ -14,7 +14,7 @@ Basically a fractal is a geometric figure with a never ending pattern.
 
 For the mandatory part, the objective was to use mlx library to create, in a window the Mandelbrot set and the Julia set.
 
-To run the mandatory part in the project directory write: make all.
+To run the mandatory part in the project directory write: ´´´make all´´´.
 
 The project runs like this:
 
@@ -75,5 +75,21 @@ zoom + changing inputs and colors!
 
 The Burning Ship is a fractal that works with the module of mandelbrot!
 
+### Make Commands
+```
+make all 
+make bonus
+make re 
+make rebonus
+make clean
+make fclean
+ ```
+ ## Links
+ 
+ [Mandelbrot example](http://warp.povusers.org/Mandelbrot/)
+ [Julia example](https://lodev.org/cgtutor/juliamandelbrot.html)
+ [Minilibx](https://harm-smits.github.io/42docs/libs/minilibx)
 
-intra idias-al
+Thanks for reading!!
+
+idias-al
