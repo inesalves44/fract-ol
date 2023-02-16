@@ -87,12 +87,12 @@ The Burning Ship is a fractal that works with the module of mandelbrot!
 
 ### Make Commands
 ```
-make all 
-make bonus
-make re 
-make rebonus
-make clean
-make fclean
+make all - creates executable
+make bonus - creates executable for bonus
+make clean - clean the objects
+make fclean - clean executable and any library, also runs clean
+make re - runs clean and fclean and then runs all to create the executable
+make rebonus - runs clean and fclean and then runs all to create the executable for bonus
  ```
  ## Links
  
