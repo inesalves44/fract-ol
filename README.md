@@ -18,11 +18,16 @@ To run the mandatory part in the project directory write: make all.
 
 The project runs like this:
 
+```
 ./fractol FRACTAL
-
+ ```
+ 
 For the mandatory part for both fractals here are the options:
 
-1) To change the window size run the program with iwNUMBER and ihNUMBER (in what order you want). For example: ./fractol mandelbrot iw300 ih500;
+1) To change the window size run the program with iwNUMBER and ihNUMBER (in what order you want);
+ ```
+For example: ./fractol mandelbrot iw300 ih500
+ ```
 2) The mousewheel zooms in and out in the center;
 3) ESC and the cross of the window closes the window.
 
@@ -37,15 +42,20 @@ Mathematical formula: f(z) = z² + C (iterating different values of C, which is 
 Mathematical formula: f(z) = z² + C -> Here the C is constant.
 
 For the Julia set you can also change the image by runing the program like this:
-
+ 
+ ```
 ./fractol Julia cxNUMBER cyNUMBER -> the cx nuber should be between -2 and 1 and the cy should be between -1,5 and 1,5!
-
+ ```
 
 ## Bonus
 
 To compile the bonus: make bonus.
 
-For the Bonus you can run the program only by: ./fractol.
+For the Bonus you can run the program only by: 
+ 
+ ```
+./fractol
+ ```
 
 Then this window will be displayed and you should input in the terminal one of the options (numbers or fractals).
 
