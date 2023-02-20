@@ -104,4 +104,4 @@ make rebonus - runs clean and fclean and then runs all to create the executable 
 
 Thanks for reading!!
 
-idias-al
+you can slack me: [idias-al](https://profile.intra.42.fr/users/idias-al)
