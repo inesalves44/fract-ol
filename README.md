@@ -1,4 +1,4 @@
-# Fract-ol
+# Fract-ol (42 lvl - 2)
 ## Overview
 
 This is a repository for the 42 school project of fract-ol.
