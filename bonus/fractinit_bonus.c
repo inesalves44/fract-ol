@@ -98,10 +98,10 @@ int	checking_fractal(char *str, char *argv[], t_vars vars)
 		ft_fractal(1, argv, vars, str);
 	else if (!ft_strncmp(str, "julia", 5) || !ft_strncmp(str, "2", 1))
 		ft_fractal(2, argv, vars, str);
-	else if (!strncmp(str, "burning ship", 11) \
+	else if (!ft_strncmp(str, "burning ship", 11) \
 		|| !ft_strncmp(str, "3", 1))
 		ft_fractal(3, argv, vars, str);
-	if (!strncmp(str, "quit", 4))
+	if (!ft_strncmp(str, "quit", 4))
 	{
 		free(str);
 		esc_window2(&vars);
