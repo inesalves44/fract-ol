@@ -78,7 +78,7 @@ int	main(int argc, char *argv[])
 	writeinwindow(&vars);
 	ft_printf("Please choose the fractal: ");
 	str = get_next_line(0);
-	if (!strncmp(str, "quit", 4))
+	if (!ft_strncmp(str, "quit", 4))
 	{
 		free(str);
 		esc_window2(&vars);
